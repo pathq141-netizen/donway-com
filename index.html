@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Portfolio - DONWAY RESMI</title>
+    <!-- Font Awesome 6 (Free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Fonts: Poppins modern -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- AOS CSS (Animasi scroll) -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(145deg, #f0f9ff 0%, #e6f2fa 100%);
+            color: #0a2b3e;
+            scroll-behavior: smooth;
+        }
+
+        /* Warna tema biru putih */
+        :root {
+            --primary: #0a66c2;
+            --primary-dark: #004182;
+            --secondary: #4d9eff;
+            --light-bg: #ffffff;
+            --white: #ffffff;
+            --dark-blue: #012a4a;
+        }
+
+        /* Custom Scroll */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #d9e6f5;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 10px;
+        }
+
+        /* Navbar */
+        nav {
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-img {
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .logo-text {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            font-weight: 500;
+            color: #1e4663;
+            transition: 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Menu Hamburger Button - Garis Tiga */
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            transition: 0.3s;
+            z-index: 1001;
+        }
+
+        .menu-toggle:hover {
+            color: var(--primary);
+        }
+
+        /* Mobile Navigation Overlay */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 70%;
+            max-width: 280px;
+            height: 100vh;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: -5px 0 30px rgba(0,0,0,0.1);
+            z-index: 1002;
+            transition: right 0.3s ease;
+            padding: 5rem 2rem 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .mobile-nav.active {
+            right: 0;
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #1e4663;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(10,102,194,0.1);
+            transition: 0.2s;
+        }
+
+        .mobile-nav a:hover {
+            color: var(--primary);
+            padding-left: 8px;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--primary-dark);
+            cursor: pointer;
+        }
+
+        /* Overlay saat menu terbuka */
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 1001;
+            display: none;
+        }
+
+        .menu-overlay.active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            background: radial-gradient(circle at 10% 30%, rgba(10,102,194,0.05), transparent);
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #0a66c2, #023e8a);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+        }
+
+        .btn-group {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        /* Sosial Media Icons */
+        .social-links {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1.8rem;
+            justify-content: center;
+        }
+
+        .social-icon {
+            font-size: 2.2rem;
+            transition: 0.2s;
+            color: #0a66c2;
+        }
+        .social-icon:hover {
+            transform: scale(1.2);
+            color: #023e8a;
+        }
+
+        /* Card Section */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            color: var(--dark-blue);
+            position: relative;
+        }
+        .section-title:after {
+            content: '';
+            width: 80px;
+            height: 4px;
+            background: var(--primary);
+            display: block;
+            margin: 12px auto 0;
+            border-radius: 4px;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .portfolio-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            padding: 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(10,102,194,0.2);
+        }
+        .portfolio-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 40px -12px rgba(10,102,194,0.25);
+        }
+        .portfolio-icon {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        /* Informasi Saya / Tentang */
+        .about-card {
+            background: white;
+            border-radius: 32px;
+            padding: 2rem;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.05);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        .about-text {
+            flex: 2;
+        }
+
+        /* Footer */
+        footer {
+            background: #012a4a;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+
+        /* Gaya untuk bagian Jelajahi Lebih Dalam (2 projek dengan foto 1:1) */
+        .explore-section {
+            margin-top: 2rem;
+        }
+        .explore-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 2rem auto 0;
+        }
+        .explore-card {
+            background: white;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            border: 1px solid rgba(10,102,194,0.2);
+        }
+        .explore-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 40px -12px rgba(10,102,194,0.25);
+        }
+        .explore-img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            background-color: #eef2f7;
+            display: block;
+        }
+        .explore-card h3 {
+            font-size: 1.4rem;
+            margin: 1rem 1rem 0.5rem;
+            color: var(--primary-dark);
+        }
+        .explore-card p {
+            padding: 0 1rem;
+            font-size: 0.9rem;
+            color: #2c5a7a;
+            margin-bottom: 1rem;
+        }
+        .explore-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+        .explore-link:hover {
+            background: var(--primary-dark);
+        }
+
+        /* Animasi premium bolak-balik */
+        .aos-animate {
+            opacity: 1 !important;
+            transform: translate(0, 0) !important;
+        }
+
+        [data-aos] {
+            opacity: 0;
+            transition-property: transform, opacity;
+            transition-duration: 0.6s;
+            transition-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        [data-aos="fade-up"] {
+            transform: translateY(40px);
+        }
+
+        [data-aos="fade-down"] {
+            transform: translateY(-40px);
+        }
+
+        [data-aos="fade-left"] {
+            transform: translateX(40px);
+        }
+
+        [data-aos="fade-right"] {
+            transform: translateX(-40px);
+        }
+
+        [data-aos="zoom-in"] {
+            transform: scale(0.9);
+        }
+
+        [data-aos].aos-animate {
+            opacity: 1;
+            transform: translate(0, 0) scale(1);
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.2rem; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-nav, .menu-overlay { display: none !important; }
+        }
+
+        @media (max-width: 680px) {
+            .explore-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="logo-area">
+        <div class="logo-img">
+            <img src="Donway.png" alt="Logo" style="width:50px; height:50px; border-radius:12px;" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 100 100\'%3E%3Crect width=\'100\' height=\'100\' fill=\'%230a66c2\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'48\' font-weight=\'bold\'%3ED%3C/text%3E%3C/svg%3E';">
+        </div>
+        <span class="logo-text">DOMWAY RESMI</span>
+    </div>
+    <div class="nav-links">
+        <a href="#home">Beranda</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#about">Tentang Saya</a>
+        <a href="#contact">Kontak</a>
+        <a href="#explore">Telusuri Kami</a>
+    </div>
+    <button class="menu-toggle" id="menuToggle">
+        <i class="fas fa-bars"></i>
+    </button>
+</nav>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav" id="mobileNav">
+    <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+    </button>
+    <a href="#home">Beranda</a>
+    <a href="#portfolio">Portfolio</a>
+    <a href="#about">Tentang Saya</a>
+    <a href="#contact">Kontak</a>
+    <a href="#explore">Telusuri Kami</a>
+</div>
+<div class="menu-overlay" id="menuOverlay"></div>
+
+<!-- Hero Section -->
+<section id="home" class="hero" data-aos="fade-up">
+    <div class="hero-content">
+        <h1>Produk online & <br>Akun premium,<br>top up game.dll</h1>
+        <p style="font-size:1.2rem; max-width:600px; margin:1rem auto;">Membangun sebuah produk online dan layanan lainnya.</p>
+        <div class="btn-group">
+            <a href="#portfolio" class="btn-primary">Lihat Portfolio</a>
+            <a href="#contact" class="btn-primary" style="background:#4d9eff;">Hubungi Kami</a>
+        </div>
+        <div class="social-links">
+            <a href="https://www.tiktok.com/@donway.official?_r=1&_t=ZS-95oItYgmt2S/" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="https://www.instagram.com/donway_official.resmi?igsh=a2JjOWp3cndqMnl1" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+    </div>
+</section>
+
+<!-- Portfolio Section -->
+<section id="portfolio" class="container" data-aos="fade-right">
+    <h2 class="section-title">Portfolio</h2>
+    <div class="portfolio-grid">
+        <div class="portfolio-card" data-aos="zoom-in">
+            <div class="portfolio-icon"><i class="fas fa-sim-card"></i></div>
+            <h3>Nomor Kosong</h3>
+            <p>Kami menjual Nomor kosong WhatsApp,dll,(fresh,anti di jual kembali).</p>
+        </div>
+        <div class="portfolio-card" data-aos="zoom-in" data-aos-delay="100">
+            <div class="portfolio-icon"><i class="fas fa-mobile-alt"></i></div>
+            <h3>Aplikasi ✅</h3>
+            <p>Platform beli produk di kirim melalui nomor WhatsApp.</p>
+        </div>
+        <div class="portfolio-card" data-aos="zoom-in" data-aos-delay="200">
+            <div class="portfolio-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+            <h3>Berbagi akun</h3>
+            <p>Berbagi beberapa akun aplikasi Premium.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Informasi Tentang Saya + Data lengkap diri -->
+<section id="about" class="container" data-aos="fade-left">
+    <h2 class="section-title">Tentang Donway</h2>
+    <div class="about-card">
+        <div class="about-text">
+            <h3 style="color:#0a66c2; margin-bottom:1rem;">ROBERT - Founder</h3>
+            <p><strong>Nama Lengkap:</strong> DONWAY</p>
+            <p><strong>TENTANG:</strong>( PRODUK)</p>
+            <p><strong>DESK</strong> DONWAY OPT adalah usaha yang bergerak di bidang produk online dan jasa online, menyediakan berbagai layanan seperti akun premium, kebutuhan digital, serta solusi praktis untuk menunjang aktivitas online pelanggan dengan cepat, aman, dan terpercaya.</p>
+            <p><strong>TIDAK FISIK/ONLINE:</strong> (ONLINE).</p>
+            <p><strong>Lokasi:</strong> PRIVATE</p>
+            <p><strong>Email:</strong>donwaynokos@gmail.com | <strong>WhatsApp:</strong> +62 857-0564-0593</p>
+        </div>
+        <div style="flex:1; text-align:center;">
+            <img src="Donway.png" alt="Logo perusahaan" style="width:130px; border-radius:30px;" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 150 150\'%3E%3Ccircle cx=\'75\' cy=\'75\' r=\'70\' fill=\'%230a66c2\'/%3E%3Ctext x=\'75\' y=\'85\' font-size=\'55\' text-anchor=\'middle\' fill=\'white\' font-weight=\'bold\'%3ED%3C/text%3E%3C/svg%3E';">
+            <p style="margin-top:12px;"><i class="fas fa-check-circle" style="color:#20D5EC;"></i> Donway opt 2026/2030</p>
+        </div>
+    </div>
+</section>
+
+<!-- Kontak / Penutup -->
+<section id="contact" class="container" data-aos="fade-up">
+    <h2 class="section-title">Hubungi Kami</h2>
+    <div style="background:white; border-radius: 28px; padding:2rem; text-align:center; max-width:600px; margin:0 auto;">
+        <i class="fas fa-envelope" style="font-size:3rem; color:#0a66c2;"></i>
+        <p style="margin:1rem 0">kunjungi media sosial kami.</p>
+        <div class="social-links" style="margin-top:1rem;">
+            <a href="#" class="social-icon"><i class="fab fa-tiktok"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p style="margin-top:1.5rem; font-size:0.9rem;"><i class="fas fa-shield-alt"></i> Keamanan data prioritas kami</p>
+    </div>
+
+    <!-- TAMBAHAN: Jelajahi kami lebih dalam (2 projek dengan foto 1:1 & link) menggunakan file PNG lokal -->
+    <div id="explore" class="explore-section" data-aos="fade-up" data-aos-delay="100">
+        <h2 class="section-title" style="margin-top: 3rem;">Jelajahi Kami Lebih Dalam</h2>
+        <div class="explore-grid">
+            <!-- PROJEK 1 - foto1.png -->
+            <div class="explore-card">
+                <img class="explore-img" src="foto1.png" alt="Preview Project Bahan Edit" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 400\'%3E%3Crect width=\'400\' height=\'400\' fill=\'%230a66c2\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'24\'%3Efoto1.png%3C/text%3E%3C/svg%3E';">
+                <h3>Jasa top up Game</h3>
+                <p>jasa top up game, terpercaya,aman100%.</p>
+                <a href="https://whatsapp.com/channel/0029VbFXLg96LwHhyiQxLy1a" target="_blank" class="explore-link">Lihat Projek →</a>
+            </div>
+            <!-- PROJEK 2 - foto2.png -->
+            <div class="explore-card">
+                <img class="explore-img" src="foto2.png" alt="Preview Akses Produk & Layanan Donway" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 400 400\'%3E%3Crect width=\'400\' height=\'400\' fill=\'%23004281\'/%3E%3Ctext x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' fill=\'white\' font-size=\'24\'%3Efoto2.png%3C/text%3E%3C/svg%3E';">
+                <h3>Akses Produk & Layanan Donway</h3>
+                <p>Platform jual beli produk online & akun premium. Cepat, aman, langsung dikirim via WhatsApp.</p>
+                <a href="https://whatsapp.com/channel/0029VbFXLg96LwHhyiQxLy1a" target="_blank" class="explore-link">Telusuri Projek →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <p>&copy; 2026/27 Donway - blue[aplikasi.dll]</p>
+</footer>
+
+<!-- AOS JS -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Inisialisasi AOS dengan sekali jalan
+    AOS.init({
+        duration: 600,
+        once: false,
+        offset: 50,
+        mirror: true
+    });
+</script>
+
+<!-- Menu Hamburger Script -->
+<script>
+    (function() {
+        const menuToggle = document.getElementById('menuToggle');
+        const mobileNav = document.getElementById('mobileNav');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+        function openMenu() {
+            mobileNav.classList.add('active');
+            menuOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMenuFunc() {
+            mobileNav.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        if (menuToggle) {
+            menuToggle.addEventListener('click', openMenu);
+        }
+        if (closeMenu) {
+            closeMenu.addEventListener('click', closeMenuFunc);
+        }
+        if (menuOverlay) {
+            menuOverlay.addEventListener('click', closeMenuFunc);
+        }
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                closeMenuFunc();
+                const targetId = this.getAttribute('href');
+                if (targetId && targetId !== '#') {
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        e.preventDefault();
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }
+            });
+        });
+    })();
+</script>
+
+<!-- ANIMASI PREMIUM BOLAK-BALIK SAAT SCROLL -->
+<script>
+    (function() {
+        // Ambil semua elemen yang memiliki atribut data-aos
+        const animatedElements = document.querySelectorAll('[data-aos]');
+        
+        // Fungsi untuk mengecek posisi elemen dan menambah/menghapus class animate
+        function checkAndAnimate() {
+            const windowHeight = window.innerHeight;
+            const triggerOffset = 80; // offset biar animasi muncul lebih awal
+            
+            animatedElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const elementTop = rect.top;
+                const elementBottom = rect.bottom;
+                
+                // Jika elemen terlihat di viewport (baik sedang masuk atau keluar)
+                const isVisible = (elementTop <= windowHeight - triggerOffset && elementBottom >= triggerOffset);
+                
+                if (isVisible) {
+                    // Tambahkan class animate jika belum ada
+                    if (!el.classList.contains('aos-animate')) {
+                        el.classList.add('aos-animate');
+                    }
+                } else {
+                    // HAPUS class animate jika elemen tidak terlihat (biar animasi muncul lagi saat scroll balik)
+                    if (el.classList.contains('aos-animate')) {
+                        el.classList.remove('aos-animate');
+                        // Force reflow untuk memastikan animasi bisa jalan lagi
+                        void el.offsetWidth;
+                    }
+                }
+            });
+        }
+        
+        // Jalankan pertama kali
+        checkAndAnimate();
+        
+        // Jalankan setiap kali user scroll (baik ke atas maupun ke bawah)
+        window.addEventListener('scroll', function() {
+            requestAnimationFrame(checkAndAnimate);
+        });
+        
+        // Jalankan juga saat resize viewport
+        window.addEventListener('resize', function() {
+            requestAnimationFrame(checkAndAnimate);
+        });
+        
+        // Jalankan juga saat orientation change (mobile)
+        window.addEventListener('orientationchange', function() {
+            setTimeout(checkAndAnimate, 50);
+        });
+        
+        // Observer untuk elemen yang mungkin ditambahkan secara dinamis (kalau ada)
+        const observer = new MutationObserver(function() {
+            checkAndAnimate();
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+    })();
+</script>
+
+</body>
+</html>
